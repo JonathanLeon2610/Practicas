@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+    <style type="text/css"> 
+        canvas{
+            background-color: rgb(138, 138, 209);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="mycanvas" width="750" height="500">El navegador no soporta Canvas<canvas>
+        <script type="text/javascript">
+            var canvas= document.getElementById("mycanvas");
+            var ctx=canvas.getContext('2d');
+            var fig ="arc";
+            var press = "false";
+            var super_X=0;
+            var super_Y=0;
+
+            /*ctx.fillStyle="rgb(200,0,0)";
+            ctx.fillRect(10,10,55,50);
+            ctx.fillStyle="rgb(0,0,200)";
+            ctx.fillRect(50,50,55,50);
+            
+            ctx.fillStyle="rgb(0,200,0,0.5)";
+            ctx.fillRect(90,90,55,50);
+            //Linea Simple
+            ctx.moveTo(450,400);
+            ctx.lineTo(300,250);
+            ctx.stroke();
+            //Triangulo
+            ctx.moveTo(125,250);
+            ctx.lineTo(350,350);
+            ctx.lineTo(200,150);
+            ctx.lineTo(125,250);
+            ctx.stroke();
+            ctx.fillStyle="rgb(50,200,35)";
+            ctx.fill();
+            //Circulo
+            ctx.beginPath();
+            ctx.arc(300,120,80,0,2*Math.PI);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(500,120,80,0,2*Math.PI);
+            ctx.fillStyle="rgb(250,100,100)";
+            ctx.fill();
+            //Gradiante Lineal
+            var grd = ctx.createLinearGradient(0, 0, 170, 0);
+            grd.addColorStop(0, "black");
+            grd.addColorStop(1, "white");
+            ctx.fillStyle = grd;
+            ctx.fillRect(20, 20, 150, 100);
+            //Gradiante Circular
+            var grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+            grd.addColorStop(0, "red");
+            grd.addColorStop(1, "white");
+            // Fill with gradient
+            ctx.fillStyle = grd;
+            ctx.fillRect(10, 10, 150, 100);
+            
+            //imagen
+            var img=document.getElementById("imagen");
+            ctx.drawImage(img,150,150);*/
+
+
+            //Pintar circulo
+            /*canvas.addEventListener("click",function(e){
+                ctx.beginPath();
+                ctx.arc(e.offsetX-12.5,e.offsetY-12.5,80,0,2*Math.PI);
+                ctx.fillStyle=generateRandomColor();
+                ctx.stroke();
+                ctx.fill();
+            });
+
+            canvas.addEventListener("mouseover",function(e){
+                console.log(e);
+            })*/
+
+            //Alternar entre figuras
+            /*canvas.addEventListener("mouseout",function(e){
+                fig=(fig=="arc")?"rec":"arc";
+            })
+
+
+            //pintar figuras
+            canvas.addEventListener("click",function(e){
+                if(fig=="arc"){
+                    ctx.beginPath();
+                    ctx.arc(e.offsetX-12.5,e.offsetY-12.5,80,0,2*Math.PI);
+                    ctx.fillStyle=generateRandomColor();
+                    ctx.stroke();
+                    ctx.fill();
+                }
+                else{
+                    ctx.fillStyle=generateRandomColor();
+                    ctx.fillRect(e.offsetX-12.5,e.offsetY-12.5,55,50);
+                }
+            })
+
+            canvas.addEventListener("mousemove",function(e){
+                if(press=="true"){
+                    ctx.fillStyle="black";
+                    ctx.fillRect(e.offsetX,e.offsetY,5,5);
+                }
+                
+            })
+
+            canvas.addEventListener("mouseup",function(e){
+                press="false";
+            })
+
+            canvas.addEventListener("mousedown",function(e){
+                press="true";
+            })*/
+
+
+            //Generar color aleatorio
+            function generateRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            document.addEventListener("keydown",function(e){
+                console.log(e);
+                if(e.keyCode==87 || e.keyCode==38){
+                    super_Y-=5;
+                }
+                if(e.keyCode==83 || e.keyCode==40){
+                    super_Y+=5;
+                }
+                if(e.keyCode==65 || e.keyCode==37){
+                    super_X-=5;
+                }
+                if(e.keyCode==68 || e.keyCode==39){
+                    super_X+=5;
+                }
+                paint();
+            })
+
+            function paint(){
+                ctx.fillStyle="rgb(138, 138, 209)";
+                ctx.fillRect(0,0,750,500);
+
+                ctx.fillStyle="red";
+                ctx.fillRect(super_X,super_Y,15,15);
+                ctx.stroke();
+            }
+            </script>
+</body>
+</html>
