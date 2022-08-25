@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+    <style type="text/css"> 
+        canvas{
+            background-color: rgb(138, 138, 209);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="mycanvas" width="500" height="500">El navegador no soporta Canvas<canvas>
+        <script type="text/javascript">
+            var canvas= null;
+            var ctx=null;
+            var fig ="arc";
+            var press = "false";
+            var super_X=0;
+            var super_Y=0;
+            var player1=null;
+            var player2=null;
+            var paredes=[null,null,null,null];
+            var direccion="derecha";
+            var score=0;
+            var speed=3;
+            var pause=false;
+
+
+            //Generar color aleatorio
+            function generateRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            document.addEventListener("keydown",function(e){
+                console.log(e);
+                if(e.keyCode==87 || e.keyCode==38){
+                    direccion="arriba";
+                }
+                if(e.keyCode==83 || e.keyCode==40){
+                    direccion="abajo";
+
+                }
+                if(e.keyCode==65 || e.keyCode==37){
+                    direccion="izquierda";
+
+                }
+                if(e.keyCode==68 || e.keyCode==39){
+                    direccion="derecha";
+                }
+                if(e.keyCode==32){
+                    if(pause==false){
+                        pause=true;
+                    }
+                    else{
+                        pause=false;
+                    }
+                    
+                }
+                
+            })
+
+            function run(){
+                canvas= document.getElementById("mycanvas");
+                ctx=canvas.getContext('2d');
+                player1=new Cuadro(0,0,40,40,"red");
+                player2=new Cuadro(Math.random()*501,Math.random()*501,40,40,"yellow");
+                paredes[0]=new Cuadro(40,120,30,300,"black");
+                paredes[1]=new Cuadro(450,300,30,300,"black");
+                paredes[2]=new Cuadro(250,20,30,300,"black");
+                paredes[3]=new Cuadro(450,100,300,30,"black");
+                paint();
+            }
+
+
+
+            function paint(){
+                window.requestAnimationFrame(paint);
+                ctx.fillStyle="rgb(138, 138, 209)";
+                
+                
+                ctx.fillRect(0,0,750,500);
+                player1.pintar(ctx);
+                player2.pintar(ctx);
+                paredes[0].pintar(ctx);
+                paredes[1].pintar(ctx);
+                paredes[2].pintar(ctx);
+                paredes[3].pintar(ctx);
+
+                ctx.fillStyle="black";
+                ctx.fillText("score "+score,10,20);
+
+                if(pause==true){
+                    ctx.fillText("Pause",0,0);
+                }
+                else{
+                    update();
+                }
+            }
+
+
+            function update(){
+                if(direccion=="arriba"){
+                    player1.y-=speed;
+                    if(player1.y<0){
+                        player1.y=500;
+                    }
+                }
+                if(direccion=="abajo"){
+                    player1.y+=speed;
+                    if(player1.y>500){
+                        player1.y=0;
+                    }
+                }
+                if(direccion=="izquierda"){
+                    player1.x-=speed;
+                    if(player1.x<0){
+                        player1.x=500;
+                    }
+
+                }
+                if(direccion=="derecha"){
+                    player1.x+=speed;
+                    if(player1.x>500){
+                        player1.x=0;
+                    }
+                }
+
+                if(player1.se_tocan(player2)){
+                    player2.x=Math.random()*501;
+                    player2.y=Math.random()*501;
+                    score+=1;
+                    speed+=1;
+                }
+
+                for(i=0;i<=paredes.length;i++){
+                    if(player1.se_tocan(paredes[i])){
+                        if(direccion=="arriba"){
+                        player1.y+=speed;
+                        }
+                        if(direccion=="abajo"){
+                            player1.y-=speed;
+                        }
+                        if(direccion=="izquierda"){
+                            player1.x+=speed;
+
+                        }
+                        if(direccion=="derecha"){
+                            player1.x-=speed;
+                        }
+                    }
+                }
+                
+                
+            }
+
+            window.requestAnimationFrame = (function () {
+                return window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    function (callback) {
+                        window.setTimeout(callback, 17);
+                    };
+            }());
+
+
+            function Cuadro(x,y,w,h,c){
+                this.x=x;
+                this.y=y;
+                this.w=w;
+                this.h=h;
+                this.c=c;
+
+
+                this.se_tocan = function (target) { 
+                if(this.x < target.x + target.w &&
+                this.x + this.w > target.x && 
+                this.y < target.y + target.h && 
+                this.y + this.h > target.y){
+                    return true;	
+                }
+                };
+
+                this.pintar=function(ctx){
+                    ctx.fillStyle=this.c;
+                    ctx.fillRect(this.x,this.y,this.w,this.h);
+                    ctx.strokeRect(this.x,this.y,this.w,this.h);
+                }
+            }
+
+
+            window.addEventListener("load",run,false);
+            </script>
+</body>
+</html>
