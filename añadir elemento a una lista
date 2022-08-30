@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue js</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id ="contenedor">
+        <h1>{{name}}</h1>
+        <h2>{{lastname}}</h2>
+        <input type="text" v-model="name" name="">
+        <button @click="hola">Click me!</button>
+        <br>
+        <input type="text" v-model="numero1">
+        <input type="text" v-model="numero2">
+        <button @click="suma">Suma</button>
+        <h1>{{resultado}}</h1>
+        <br>
+        <br>
+
+        <input type="text" v-model="age" value="">
+        <br>
+        <br>
+        <ol>
+            <li v-for="item in chamacos">
+                {{item.name}}  <span>: {{item.role}}</span>
+            </li>
+        </ol>
+
+        <input type="text" v-model="nombre" name="">
+        <input type="text" v-model="role" name="" >
+        <button @click="agregar">Save</button>
+    </div>
+    <script type="text/javascript">
+        const { createApp } =  Vue;
+        const app=createApp({
+            data(){
+                return{
+                    name: "Jonathan",
+                    lastname: "Leon",
+                    numero1: " ",
+                    numero2: " ",
+                    resultado: " ",
+                    age: " ",
+                    chamacos: [{name:"Iran",role:"fron"},{name:"Duarte",role:"Backend"},{name:"Buenrostro",role:"Movil"}],
+                    nombre:"",
+                    role:"",
+
+
+                }
+            },methods: {
+                hola(){
+                    alert("Hola");
+                },
+                suma(){
+                    this.numero1= parseInt(this.numero1);
+                    this.numero2=parseInt(this.numero2);
+                    this.resultado=this.numero1+this.numero2;
+                },
+                agregar()
+                {
+                this.chamacos.push({name:this.nombre,role:this.role})
+                
+            }
+        }}).mount("#contenedor")
+    </script>
+</body>
+</html>
