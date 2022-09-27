@@ -12,21 +12,22 @@
 </head>
 <body class="m-0 row justify-content-center">
     <div class="container col-auto ">
-            <form>
+            <form method="post" action="app/AuthController.php">
                     <fieldset>
                         <legend>
                             <h1>Datos de acceso</h1>
                         </legend>
                         <div class="form-floating mb-3 ">
-                            <input type="email" class="form-control shadow-lg bg-body rounded" style="width: 200px" id="floatingInput" placeholder="name@example.com">
+                            <input type="email" name="email" class="form-control shadow-lg bg-body rounded" style="width: 200px" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Email address</label>
                         </div>
                         <div class="form-floating">
-                            <input type="password" class="form-control shadow-lg bg-body rounded" style="width: 200px" id="floatingPassword" placeholder="Password">
+                            <input type="password" name="password" class="form-control shadow-lg bg-body rounded" style="width: 200px" id="floatingPassword" placeholder="Password">
                             <label for="floatingPassword">Password</label>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-outline-primary"><a href="./products/index.php">Hola</a></button>
+                        <button type="submit" class="btn btn-outline-primary">Acceder</button>
+                        <input type="hidden" value="access" name="action">
                     </fieldset>
             </form>
     </div>
