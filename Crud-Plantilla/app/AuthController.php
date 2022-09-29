@@ -14,9 +14,7 @@ Class AuthController{
 
 	public function login($email,$password)
 	{
-
 		$curl = curl_init();
-
 		curl_setopt_array($curl, array(
 	    CURLOPT_URL => 'https://crud.jonathansoto.mx/api/login',
 		CURLOPT_RETURNTRANSFER => true,
@@ -48,7 +46,6 @@ Class AuthController{
 		    // var_dump($response);
 			header("Location:../?error=true");
 		}
-
 	}
 }
 
