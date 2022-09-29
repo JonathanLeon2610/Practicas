@@ -56,13 +56,13 @@
                     <div class="col-2"><button class="btn btn-info mb-4 mt-4" data-bs-toggle="modal" data-bs-target="#modalAgregar">Añadir producto</button></div>
                 </div>
                 <div class="row">
-                    <?php for($i = 0; $i<12; $i++): ?>
-                    <div class="col-sm-3 col-md-3 mb-5">
+                    <?php foreach($products as $item):?>
+                        <div class="col-4 mb-4 mt-2">
                         <div class="card bg-light " style="width: 20rem;">
-                            <img src="../img/img.png" class="card-img-top" alt="...">
+                            <img src="<?php echo $item['cover']?>" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title ">Coquita</h5>
-                                <p class="card-text ">Coquita Helada</p>
+                                <h5 class="card-title "><?php echo $item['name']?></h5>
+                                <p class="card-text "><?php echo $item['description']?></p>
                                 <div class="row">
                                     <div class="col">
                                         <a href="#" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#modalAgregar">Editar</a>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    <?php endfor; ?>
+                    <?php endforeach;?>
                 </div>
             </div>
         </div>
